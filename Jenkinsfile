@@ -4,13 +4,12 @@ pipeline {
     triggers {
          pollSCM('* * * * *') // Polling Source Control
      }
-         environment{
-       mvnHome = tool 'localMaven'
-        }
+
 stages{
         stage('Build'){
             steps {
-                sh 'mvnHome clean package'
+                def mvnHome = tool 'localMaven'
+                sh '${mvnHome}/bin/mvn clean package'
             }
             post {
                 success {
